@@ -1,0 +1,12 @@
+sudo apt update
+sudo apt upgrade
+
+1) sudo apt install ufw
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+ufw is already the newest version (0.36.1-4ubuntu0.1).
+ufw set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 13 not upgraded.
+
+2) enable / disable  ufw
