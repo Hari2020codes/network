@@ -100,7 +100,10 @@ The following NEW packages will be installed:
 
 7)to check docker status 
   root@DESKTOP-2T3HG5G:~# sudo systemctl status docker
-  
+
+
+or for wsl
+ docker --version
   
   
   
