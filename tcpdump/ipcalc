@@ -1,0 +1,133 @@
+calculate and virtualize n/w address, subnet segments
+
+1) install:
+
+sudo apt install ipcalc
+
+sudo apt install ipcalc
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+ipcalc is already the newest version (0.42-2).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+
+2) used to view system ip info
+
+>>>>ipcalc 
+ot@DESKTOP-2T3HG5G:~# ipcalc
+Usage: ipcalc [options] <ADDRESS>[[/]<NETMASK>] [NETMASK]
+
+ipcalc takes an IP address and netmask and calculates the resulting
+broadcast, network, Cisco wildcard mask, and host range. By giving a
+second netmask, you can design sub- and supernetworks. It is also
+intended to be a teaching tool and presents the results as
+easy-to-understand binary values.
+
+ -n --nocolor  Don't display ANSI color codes.
+ -c --color    Display ANSI color codes (default).
+ -b --nobinary Suppress the bitwise output.
+ -c --class    Just print bit-count-mask of given address.
+ -h --html     Display results as HTML (not finished in this version).
+ -v --version  Print Version.
+ -s --split n1 n2 n3
+               Split into networks of size n1, n2, n3.
+ -r --range    Deaggregate address range.
+    --help     Longer help text.
+
+Examples:
+
+ipcalc 192.168.0.1/24
+ipcalc 192.168.0.1/255.255.128.0
+ipcalc 192.168.0.1 255.255.128.0 255.255.192.0
+ipcalc 192.168.0.1 0.0.63.255
+
+
+ipcalc <ADDRESS1> - <ADDRESS2>  deaggregate address range
+
+ipcalc <ADDRESS>/<NETMASK> --s a b c
+                                split network to subnets
+                                where a b c fits in.
+
+! New HTML support not yet finished.
+
+ipcalc 0.5
+
+
+
+3) calculate subnet for 192.168.0.1/24
+
+ot@DESKTOP-2T3HG5G:~# ipcalc 192.168.0.1/24
+Address:   192.168.0.1          11000000.10101000.00000000. 00000001
+Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
+Wildcard:  0.0.0.255            00000000.00000000.00000000. 11111111
+=>
+Network:   192.168.0.0/24       11000000.10101000.00000000. 00000000
+HostMin:   192.168.0.1          11000000.10101000.00000000. 00000001
+HostMax:   192.168.0.254        11000000.10101000.00000000. 11111110
+Broadcast: 192.168.0.255        11000000.10101000.00000000. 11111111
+Hosts/Net: 254                   Class C, Private Internet
+
+4) get info about n/w address 192.168.0.1
+
+
+ot@DESKTOP-2T3HG5G:~# ipcalc 192.168.0.1
+Address:   192.168.0.1          11000000.10101000.00000000. 00000001
+Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
+Wildcard:  0.0.0.255            00000000.00000000.00000000. 11111111
+=>
+Network:   192.168.0.0/24       11000000.10101000.00000000. 00000000
+HostMin:   192.168.0.1          11000000.10101000.00000000. 00000001
+HostMax:   192.168.0.254        11000000.10101000.00000000. 11111110
+Broadcast: 192.168.0.255        11000000.10101000.00000000. 11111111
+Hosts/Net: 254                   Class C, Private Internet
+
+
+5) calculate single subnet with 10 hosts
+
+
+ot@DESKTOP-2T3HG5G:~# ipcalc 192.168.0.1 -s 10
+
+Address:   192.168.0.1          11000000.10101000.00000000. 00000001
+Netmask:   255.255.255.0 = 24   11111111.11111111.11111111. 00000000
+Wildcard:  0.0.0.255            00000000.00000000.00000000. 11111111
+=>
+Network:   192.168.0.0/24       11000000.10101000.00000000. 00000000
+HostMin:   192.168.0.1          11000000.10101000.00000000. 00000001
+HostMax:   192.168.0.254        11000000.10101000.00000000. 11111110
+Broadcast: 192.168.0.255        11000000.10101000.00000000. 11111111
+Hosts/Net: 254                   Class C, Private Internet
+
+1. Requested size: 10 hosts
+Netmask:   255.255.255.248 = 29 11111111.11111111.11111111.11111 000
+Network:   192.168.0.0/29       11000000.10101000.00000000.00000 000
+HostMin:   192.168.0.1          11000000.10101000.00000000.00000 001
+HostMax:   192.168.0.6          11000000.10101000.00000000.00000 110
+Broadcast: 192.168.0.7          11000000.10101000.00000000.00000 111
+Hosts/Net: 6                     Class C, Private Internet
+
+Needed size:  16 addresses.
+Used network: 192.168.0.0/28
+Unused:
+192.168.0.16/28
+192.168.0.32/27
+192.168.0.64/26
+192.168.0.128/25
+
+
+
+6)to supress binary output, use -b 
+>>>>ipcalc -b 192.168.0.1
+Address:   192.168.0.1
+Netmask:   255.255.255.0 = 24
+Wildcard:  0.0.0.255
+=>
+Network:   192.168.0.0/24
+HostMin:   192.168.0.1
+HostMax:   192.168.0.254
+Broadcast: 192.168.0.255
+Hosts/Net: 254                   Class C, Private Internet
+
+
+
+
