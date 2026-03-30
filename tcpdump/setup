@@ -1,0 +1,22 @@
+open source packet analyzer install and set up
+(need additional set up if running inside wsl or containers)
+1) sudo apt update
+
+2) sudo apt install tcpdump
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+tcpdump is already the newest version (4.99.1-3ubuntu0.2).
+tcpdump set to manually installed.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+
+3) root@DESKTOP-2T3HG5G:~# sudo tcpdump --version
+
+tcpdump version 4.99.1
+libpcap version 1.10.1 (with TPACKET_V3)
+OpenSSL 3.0.2 15 Mar 2022
+
+4) 
+
