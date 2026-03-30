@@ -1,0 +1,37 @@
+1) sudo apt update
+Hit:1 https://download.docker.com/linux/ubuntu focal InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease
+Hit:4 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+13 packages can be upgraded. Run 'apt list --upgradable' to see them.
+W: https://download.docker.com/linux/ubuntu/dists/focal/InRelease: Key is stored in legacy trusted.gpg keyring (/etc/apt/trusted.gpg), see the DEPRECATION section in apt-key(8) for details.
+
+2)sudo apt install apache2 -y
+
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+apache2 is already the newest version (2.4.52-1ubuntu4.19).
+0 upgraded, 0 newly installed, 0 to remove and 13 not upgraded.
+root@DESKTOP-2T3HG5G:~#
+
+3) check if its status 
+root@DESKTOP-2T3HG5G:~# sudo service apache2 status
+* apache2 is running
+
+3) if not running due to wsl
+sudo service apache2 status
+
+then
+ sudo service apache2 status
+
+Start Apache and keep it running: sudo apachectl start
+
+
+
+
+
