@@ -1,0 +1,45 @@
+
+1)to see list of n/w interface available on system on which tcpdump can capture packets
+
+
+>>sudo tcpdump -D
+1.eth0 [Up, Running]
+2.eth1 [Up, Running]
+3.any (Pseudo-device that captures on all interfaces) [Up, Running]
+4.lo [Up, Running, Loopback]
+5.bluetooth-monitor (Bluetooth Linux Monitor) [Wireless]
+6.dbus-system (D-Bus system bus) [none]
+7.dbus-session (D-Bus session bus) [none]
+
+2)to cpature packets through a specific interface
+sudo tcpdump -i wlpls0/sudo tcpdump -i eth0/sudo tcpdump -i enp2s0
+
+3)to show details of last 4 packets
+cselab@DESKTOP-2T3HG5G:~$ sudo tcpdump -c 4 wlp1s0 -i
+
+tcpdump: option requires an argument -- 'i'
+tcpdump version 4.99.1
+libpcap version 1.10.1 (with TPACKET_V3)
+OpenSSL 3.0.2 15 Mar 2022
+Usage: tcpdump [-AbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ] [--count]
+                [ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ]
+                [ -i interface ] [ --immediate-mode ] [ -j tstamptype ]
+                [ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ]
+                [ -r file ] [ -s snaplen ] [ -T type ] [ --version ]
+                [ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ]
+                [ --time-stamp-precision precision ] [ --micro ] [ --nano ]
+                [ -z postrotate-command ] [ -Z user ] [ expression ]
+
+
+4) to see  information of ip address in terms of ipv6 addressing in hexadecimal format
+ sudo tcpdump -XX -i wlp1s0  /  or   sudo tcpdump -XX -i eth0
+
+5) to access information of packets from a specific port no
+ sudo tcpdump -i wlp1s0 -c5 port 80
+
+6) to store packet information limited by lines, words
+sudo tcpdump -i wlp1s0 -c 10 -w icmp.pcap
+
+
+7)to read the content of a packet capture by using tcpdump
+sudo tcpdump -r icmp.pcap
