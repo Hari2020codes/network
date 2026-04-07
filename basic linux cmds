@@ -1,0 +1,247 @@
+1) View beginning of a file
+head file.txt
+
+Common variants
+head -n 5 file.txt        # First 5 lines
+head -n -5 file.txt       # All except last 5 lines
+head -c 20 file.txt       # First 20 bytes
+head -q file1 file2       # No headers when multiple files
+head -v file1 file2       # Always show headers
+
+2) tail — View end of a file
+tail file.txt
+
+Common variants
+tail -n 10 file.txt       # Last 10 lines
+tail -n +5 file.txt       # Start from line 5
+tail -c 50 file.txt       # Last 50 bytes
+tail -f file.txt          # Follow file in real time (logs)
+tail -F file.txt          # Follow even if file is recreated
+
+
+3) cat — Concatenate & display files
+cat file.txt
+
+Common variants
+
+cat file1 file2           # Merge and display
+cat file1 file2 > out.txt # Merge into new file
+cat -n file.txt           # Show line numbers
+cat -b file.txt           # Number non-empty lines
+cat -s file.txt           # Remove repeated blank lines
+cat -E file.txt           # Show end-of-line ($)
+cat -T file.txt           # Show tabs as ^I
+
+Create file
+cat > file.txt
+# type content, press Ctrl+D to save
+
+4.) ls — List directory contents
+ls
+ls -l                    # Long listing format
+ls -a                    # Show hidden files
+ls -lh                   # Human-readable sizes
+ls -lt                   # Sort by modification time
+ls -lr                   # Reverse order
+ls -R                    # Recursive listing
+ls -d */                 # Only directories
+ls -i                    # Show inode numbers
+ls --color=auto          # Colored output
+
+Combined examples
+ls -lah                  # Very common combo
+ls -ltr                  # Oldest files last
+
+ls *.txt          # all .txt files
+ls file*          # files starting with 'file'
+ls file?.txt      # file1.txt, fileA.txt
+
+5)grep — Search text patterns
+grep "text" file.txt
+
+Common variants
+grep -i "text" file.txt      # Case-insensitive
+grep -v "text" file.txt      # Invert match
+grep -n "text" file.txt      # Show line numbers
+grep -c "text" file.txt      # Count matches
+grep -r "text" dir/          # Recursive search
+grep -w "word" file.txt      # Match whole word
+grep -x "line" file.txt      # Match whole line
+grep -l "text" *.txt         # Show filenames only
+grep -L "text" *.txt         # Files without match
+grep -o "text" file.txt      # Only matched part
+
+Advanced variants
+grep -E "a|b" file.txt       # Extended regex (OR)
+grep -F "text" file.txt      # Fixed string (faster)
+grep --color=auto "text" file.txt  # Highlight matches
+
+>>>>
+grep -E "cat|dog" file.txt
+Matches either cat or dog
+
+grep "xyz$" file.txt
+Ends with (LIKE '%xyz')
+
+Starts with (LIKE 'abc%')
+grep "^abc" file.txt
+
+Matches: abcd, abXYZcd
+grep "ab.*cd" file.txt
+
+6)Useful Combinations (Pipelines)
+
+These commands are often combined:
+
+ls -l | grep ".txt"          # List only .txt files
+cat file.txt | grep "error"  # Search inside file
+tail -f log.txt | grep "fail" # Live filtering logs
+
+
+7) . Main Wildcards
+* → Matches any number of characters
+ls *.txt
+✔ Matches: a.txt, file.txt, notes.txt
+
+Wildcards in Linux are special characters used by the **shell** to match filenames or patterns—similar to SQL `LIKE`, but used mostly with commands like `ls`, `cp`, `rm`, etc.
+
+---
+
+# 🌟 1. Main Wildcards
+
+## `*` → Matches any number of characters
+
+```bash id="8tvfdx"
+ls *.txt
+```
+
+✔ Matches: `a.txt`, `file.txt`, `notes.txt`
+
+```bash id="5jwh88"
+ls file*
+```
+
+✔ Matches: `file1`, `fileA.txt`, `file_backup.log`
+
+---
+
+## `?` → Matches exactly one character
+
+```bash id="e9s1hn"
+ls file?.txt
+```
+
+✔ Matches: `file1.txt`, `fileA.txt`
+❌ Not: `file10.txt`
+
+---
+
+## `[]` → Matches a range or set of characters
+
+```bash id="knwy86"
+ls file[123].txt
+```
+
+✔ Matches: `file1.txt`, `file2.txt`, `file3.txt`
+
+```bash id="3ggs7y"
+ls file[a-c].txt
+```
+
+✔ Matches: `filea.txt`, `fileb.txt`, `filec.txt`
+
+---
+
+## `[! ]` → Negation (NOT in set)
+
+```bash id="q70syc"
+ls file[!1].txt
+```
+
+✔ Matches: all except `file1.txt`
+
+---
+
+# 🌟 2. Common Use Cases
+
+### List files
+
+```bash id="edqh9d"
+ls *.log
+ls data_?.csv
+```
+
+### Copy files
+
+```bash id="c6i0hu"
+cp *.txt backup/
+```
+
+### Remove files ⚠️
+
+```bash id="0o0h3m"
+rm *.tmp
+```
+
+---
+
+# 🌟 3. Combined Patterns
+
+```bash id="3txg42"
+ls file*.txt        # starts with 'file' and ends with .txt
+ls *report*         # contains 'report'
+ls [a-z]*.sh        # starts with lowercase letter
+```
+
+---
+
+# 🌟 4. Wildcards vs Regex (Important Difference)
+
+| Feature | Wildcards | Regex (`grep`) |
+| ------- | --------- | -------------- |
+| Usage   | Filenames | File content   |
+| `*`     | any chars | `.*`           |
+| `?`     | one char  | `.`            |
+| `[abc]` | same      | same           |
+
+---
+
+# 🌟 5. Hidden Files Special Case
+
+```bash id="pvn73e"
+ls *
+```
+
+❌ Does NOT show hidden files
+
+```bash id="k2z9s1"
+ls .*     # shows hidden files
+```
+
+---
+
+# 🌟 6. Escaping Wildcards
+
+If you want literal `*` or `?`:
+
+```bash id="8g9q9c"
+ls \*.txt
+```
+
+---
+
+# ⚡ Quick Cheat Sheet
+
+* `*` → any number of characters
+* `?` → exactly one character
+* `[abc]` → match a, b, or c
+* `[a-z]` → range
+* `[!abc]` → NOT a, b, c
+
+---
+
+If you want next step, I can show:
+
+* tricky wildcard interview questions
+* real command-line tasks using wildcards
+* differences between globbing and regex in depth
